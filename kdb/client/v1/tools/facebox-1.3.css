@@ -1,0 +1,76 @@
+#facebox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  text-align: left;
+}
+
+
+#facebox .popup{
+    position: relative;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,0.25);
+    border-radius: 5px;
+    box-shadow: 0 0 18px rgba(0,0,0,0.4);
+}
+
+#facebox .content {
+  padding: 10px;
+  background: #fff;
+  border-radius:4px;
+  max-height:490px;
+  overflow-y: scroll;
+}
+#facebox .title {
+	width:98%;
+	height:25px;
+	padding-top:10px;
+    border-bottom:1px solid #aaa;
+    padding-left:2%;
+}
+#facebox .footer {
+	width:98%;
+	height:43px;
+	padding-top:2px;
+    text-align: center;
+}
+#facebox .footer button {
+	margin-right:5px;
+}
+#facebox .title a{color:#078;}
+
+#facebox .close{
+  position:absolute;
+  top:3px;
+  right:3px;
+  padding:0;
+}
+#facebox .close svg{
+  opacity:0.3;
+}
+#facebox .close:hover svg{
+  opacity:1.0;
+}
+
+#facebox .loading {
+  text-align: center;
+}
+
+#facebox_overlay {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  height:100%;
+  width:100%;
+}
+
+.facebox_hide {
+  z-index:-100;
+}
+
+.facebox_overlayBG {
+  background-color: #000;
+  z-index: 99;
+}

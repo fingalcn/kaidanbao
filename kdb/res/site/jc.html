@@ -1,0 +1,159 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+    <title>开单宝</title>
+    <style type="text/css">
+    *{padding:0;margin:0;border:0;}
+    body{background-color:#222;}
+    div.box{background-color: #fafafa;float:left;width:10%;height:auto;}
+    div.box img{width:100%;}
+    div.b0{width:100%;}
+    div.zimu{float:left;width:100%;color:#fff;text-align:center;margin-top:50px;font-size:50px;}
+    </style>
+    <script>
+    (function(){
+    	var root = 'http://r.kaidanbao.cn/hy1/';
+    	var first_load=0;//初始加载计数器
+    	var show_load = 0;//一边显示一边加载
+    	var times=0;//图片切换计数器
+    	var list=[//图片名称，说明，停留时间，是否插入1飞机2轮船3汽车，下一站说明
+    		['a1.jpg','第一站前往：泰国',600,0],
+    		['a2.jpg','清迈·双龙寺',600,0],
+    		['a3.jpg','清迈·白庙',2400,0],
+    		['a4.jpg','清迈·丛林探险',2400,0],
+    		['a5.jpg','下一站：斯里兰卡',2400,0],
+    		['a6.jpg','斯里兰卡·海上火车',600,0],
+    		['a7.jpg','斯里兰卡·狮子岩',2400,0],
+    		['a8.jpg','斯里兰卡·海滩',2400,0],
+    		['a9.jpg','下一站：马尔代夫',2400,0],
+    		['a10.jpg','马尔代夫·群岛',600,0],
+    		['a11.jpg','马尔代夫·粉色沙滩',2400,0],
+    		['a12.jpg','马尔代夫·海上星空',2400,0],
+    		['a13.jpg','下一站：印度',2400,0],
+    		['a14.jpg','印度·毗瑟神庙',600,0],
+    		['a15.jpg','印度·泰姬陵',2400,0],
+    		['a16.jpg','印度·瓦拉纳西',2400,0],
+    		['a17.jpg','下一站：坦桑尼亚',2400,0],
+    		['a18.jpg','坦桑尼亚·乞力马扎罗',600,0],
+    		['a19.jpg','坦桑尼亚·大迁徙',2400,0],
+    		['a20.jpg','坦桑尼亚·小朋友',2400,0],
+    		['a21.jpg','下一站：埃及',2400,0],
+    		['a22.jpg','埃及·胡夫金字塔',600,0],
+    		['a23.jpg','埃及·神庙',2400,0],
+    		['a24.jpg','埃及·古城',2400,0],
+    		['a25.jpg','下一站：土耳其',2400,0],
+    		['a26.jpg','土耳其·圣索菲亚',600,0],
+    		['a27.jpg','土耳其·卡帕多西亚',2400,0],
+    		['a28.jpg','土耳其·棉花堡',2400,0],
+    		['a29.jpg','下一站：芬兰',2400,0],
+    		['a30.jpg','芬兰·圣诞村',600,0],
+    		['a31.jpg','芬兰·拉普兰',2400,0],
+    		['a32.jpg','芬兰·北极光',2400,0],
+    		['a33.jpg','下一站：法国',2400,0],
+    		['a34.jpg','法国·埃菲尔',600,0],
+    		['a35.jpg','法国·香榭丽舍',2400,0],
+    		['a36.jpg','法国·卢浮宫',2400,0],
+    		['a37.jpg','下一站：西班牙',2400,0],
+    		['a38.jpg','西班牙·斗牛场',600,0],
+    		['a39.jpg','西班牙·古埃尔',2400,0],
+    		['a40.jpg','西班牙·隆达',2400,0],
+    		['a41.jpg','下一站：荷兰',2400,0],
+    		['a42.jpg','荷兰·郁金香花海',600,0],
+    		['a43.jpg','荷兰·水城',2400,0],
+    		['a44.jpg','荷兰·羊角村',2400,0],
+    		['a45.jpg','下一站：加拿大',2400,0],
+    		['a46.jpg','加拿大·枫叶王国',600,0],
+    		['a47.jpg','加拿大·魁北克',2400,0],
+    		['a48.jpg','加拿大·瀑布',2400,0],
+    		['a49.jpg','下一站：美国',2400,0],
+    		['a50.jpg','美国·黄石公园',600,0],
+    		['a51.jpg','美国·芝加哥',2400,0],
+    		['a52.jpg','美国·洛杉矶',2400,0],
+    		['a53.jpg','下一站：巴西',2400,0],
+    		['a54.jpg','巴西·首都',600,0],
+    		['a55.jpg','巴西·亚马逊',2400,0],
+    		['a56.jpg','巴西·依瓜苏瀑布',2400,0],
+    		['a57.jpg','下一站：智利',2400,0],
+    		['a58.jpg','智利·圣地亚哥',600,0],
+    		['a59.jpg','智利·阿塔卡沙漠',2400,0],
+    		['a60.jpg','智利·复活岛',2400,0],
+    		['a61.jpg','下一站：新西兰',2400,0],
+    		['a62.jpg','新西兰·奥克兰',600,0],
+    		['a63.jpg','新西兰·灯塔',2400,0],
+    		['a64.jpg','新西兰·南极冰泉',2400,0],
+    		['a65.jpg','下一站：澳大利亚',2400,0],
+    		['a66.jpg','澳大利亚·悉尼',600,0],
+    		['a67.jpg','澳大利亚·大堡礁',2400,0],
+    		['a68.jpg','澳大利亚·袋鼠',2400,0],
+    		['a69.jpg','下一站：印尼',2400,0],
+    		['a70.jpg','印尼·巴厘岛',600,0],
+    		['a71.jpg','印尼·菠萝浮屠',2400,0],
+    		['a72.jpg','印尼·克里火山',2400,0],
+    		['a73.jpg','下一站：日本',2400,0],
+    		['a74.jpg','日本·富士山',600,0],
+    		['a75.jpg','日本·天守阁',2400,0],
+    		['a76.jpg','日本·东京',2400,0],
+    		['a77.jpg','下一站：上海',2400,0],
+    		['a78.jpg','途径19个国家，历时6个月，预算50万RMB。',2400,0],
+    	];
+    	var map={
+    		fj:['fj.jpg',0,1000],
+    		lc:['lc.jpg',0,1000],
+    	};
+    	var list_switch = 0;//集合切换计数器
+    	var $=function(id){
+    		return document.getElementById(id);
+    		
+    	}
+    	var swc = function(load){
+    		if(times == list[show_load][2]){
+    			times = 0;
+	    		$('m0').src = root+list[show_load][0];
+	    		$('bz').innerHTML = list[show_load][1];
+	    		if(load) $('m'+(((show_load+10)%10)+1)).src = root+list[show_load+10][0];
+	    		show_load++;
+    		}else{
+    			times += 300;
+    		}
+    		
+    	}
+    	var clock = setInterval(function(){
+    		console.log(first_load);
+    		//初始加载
+    		if(first_load > 9){//加载完毕
+    			swc(show_load+10 < list.length);
+    			
+        		//图片播放结束停止循环
+        		if(show_load == list.length){
+        			clearInterval(clock);
+        			return;
+        		}
+    		}else{
+    			if(first_load == 6){//加载一半，显示飞机
+    				
+    			}
+    			$('m'+(first_load+1)).src = root+list[first_load][0];
+    		}
+    		first_load++;
+    		
+    	},300);
+    })()
+    </script>
+</head>
+<body>
+<div class="box b0"><img id='m0' src="/19.jpg" /></div>
+<div class="box b1"><img id='m1' src="/19.jpg" /></div>
+<div class="box b2"><img id='m2' src="/19.jpg" /></div>
+<div class="box b3"><img id='m3' src="/19.jpg" /></div>
+<div class="box b4"><img id='m4' src="/19.jpg" /></div>
+<div class="box b5"><img id='m5' src="/19.jpg" /></div>
+<div class="box b6"><img id='m6' src="/19.jpg" /></div>
+<div class="box b7"><img id='m7' src="/19.jpg" /></div>
+<div class="box b8"><img id='m8' src="/19.jpg" /></div>
+<div class="box b9"><img id='m9' src="/19.jpg" /></div>
+<div class="box b10"><img id='m10' src="/19.jpg" /></div>
+<div id='bz' class="zimu">前进的梦想！</div>
+
+</body>
+</html>

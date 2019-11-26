@@ -1,0 +1,25 @@
+{
+  "name": "kaidanbao-webapp",
+  "version": "2.0.0",
+  "private": true,
+  "main": "main.js",
+  "dependencies": {
+    "mongodb": ">=2.1.7",
+    "uglify-js": "*",
+    "cat": "*",
+    "clean-css": "*",
+    "urllib": ">=0.5.2"
+  },
+  "scripts": {
+    "build-js-fingal": "cat client/v1/js/fingal/k.js client/v1/js/fingal/k0.utils.js client/v1/js/fingal/k1.safe.js client/v1/js/fingal/k2.conf.js client/v1/js/fingal/k3.cache.js client/v1/js/fingal/k4.dao.js client/v1/js/fingal/k5.syn.js client/v1/js/fingal/k6.aspect.js client/v1/js/fingal/k7.frame.js client/v1/js/fingal/k8.plugin.js client/v1/js/fingal/k9.net.js > client/v1/tmp/fingal.js",
+    "build-js-kaidanbao": "cat client/v1/js/kaidanbao/k2.z.kdbconf.js client/v1/js/kaidanbao/k6.z.atcp.js client/v1/js/kaidanbao/k6.z.billing.js client/v1/js/kaidanbao/k6.z.manage.js client/v1/js/kaidanbao/k6.z.print.js client/v1/js/kaidanbao/k8.z.chart.js client/v1/js/kaidanbao/k8.z.fi.js client/v1/js/kaidanbao/k8.z.home.js client/v1/js/kaidanbao/k8.z.loading.js client/v1/js/kaidanbao/k8.z.sale.js client/v1/js/kaidanbao/k8.z.sign.js client/v1/js/kaidanbao/k8.z.stock.js > client/v1/tmp/kaidanbao.js",
+    "build-js-tools": "cat client/v1/tools/autocomplete-1.3.js client/v1/tools/facebox-1.3.js client/v1/tools/wonderland.js > client/v1/tmp/tools.js",
+    "build-js": "cat client/v1/tmp/tools.js client/v1/tmp/fingal.js client/v1/tmp/kaidanbao.js > client/v1/tmp/k1.js",
+    "uglify-js": "uglifyjs client/v1/tmp/k1.js -m -o client/v1/tmp/k2.js",
+    "cat-js": "cat client/v1/tools/jquery-3.1.1.min.js client/v1/tools/echarts.min.js client/v1/tmp/k2.js > client/v1/k.js",
+    "build-css": "cat client/v1/style/kore.css client/v1/tools/facebox-1.3.css client/v1/tools/autocomplete-1.2.24.css > client/v1/tmp/k1.css",
+    "clean-css": "cleancss -o client/v1/k.css client/v1/tmp/k1.css",
+    "build": "npm run build-js-fingal && npm run build-js-kaidanbao && npm run build-js-tools && npm run build-js && npm run uglify-js && npm run cat-js && npm run build-css && npm run clean-css",
+    "start": "npm run build && node script/server"
+  }
+}
